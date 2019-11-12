@@ -25,7 +25,8 @@ for(var x = 0; x < storedNames.length; x++) {
     item[x] = document.createElement("li");
     item[x].setAttribute("id", "list-" + x);
     item[x].textContent = storedNames[x];
-    document.querySelector('#todo-list').appendChild(item[x]);
+    item[x].appendChild(document.createElement("button"));
+    document.querySelector('#todo-list').appendChild(item[x]); 
 }
 
 //Function to store input into our array 
@@ -39,6 +40,12 @@ function addFunc(event) {
     localStorage.setItem("tasks", JSON.stringify(storedNames));
 }
 
+//Function to remove an element from the array
 
-
-
+todoList.addEventListener('click', function(event) {
+    for(var i = 0;i<item.length; i++){
+        if(event.target.parentNode.id === "list-" + i) {
+            alert(event.target.parentNode.textContent);
+        }
+    }
+});
