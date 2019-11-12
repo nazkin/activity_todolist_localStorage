@@ -19,7 +19,8 @@ var todoCountSpan = document.querySelector("#todo-count");
 //Retrieve values from localStorage 
 var storedNames = [""];
 storedNames = JSON.parse(localStorage.getItem("tasks"));
-todoCountSpan.textContent = storedNames.length;//counter for the number of lists in my todo
+todoCountSpan.textContent = storedNames.length;
+
 var item = [];//array to hold our list items
 for(var x = 0; x < storedNames.length; x++) {
     item[x] = document.createElement("li");
@@ -43,9 +44,14 @@ function addFunc(event) {
 //Function to remove an element from the array
 
 todoList.addEventListener('click', function(event) {
-    for(var i = 0;i<item.length; i++){
+    for(var i = 0;i < storedNames.length; i++){
         if(event.target.parentNode.id === "list-" + i) {
-            alert(event.target.parentNode.textContent);
+            storedNames.splice(i,1);
+            localStorage.removeItem("tasks");
+            localStorage.setItem("tasks", JSON.stringify(storedNames));
+            document.querySelector('#list-' + i).remove();
+            storedNames = JSON.parse(localStorage.getItem("tasks")); 
+            todoCountSpan.textContent = storedNames.length;           
         }
     }
 });
